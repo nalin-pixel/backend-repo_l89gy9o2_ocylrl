@@ -11,11 +11,10 @@ Model name is converted to lowercase for the collection name:
 - BlogPost -> "blogs" collection
 """
 
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field, HttpUrl
+from typing import Optional, List
 
-# Example schemas (replace with your own):
-
+# Existing example schemas (kept for reference / potential reuse)
 class User(BaseModel):
     """
     Users collection schema
@@ -38,11 +37,32 @@ class Product(BaseModel):
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
 
-# Add your own schemas here:
-# --------------------------------------------------
+# Batman-themed collections
+class Batmobile(BaseModel):
+    """
+    Batmobile collection schema
+    Collection name: "batmobile"
+    """
+    name: str = Field(..., description="Designation or common name")
+    year: Optional[int] = Field(None, description="First appearance year")
+    media: str = Field(..., description="Where it appears (film, animation, game, comic)")
+    title: Optional[str] = Field(None, description="Title of the work, e.g., The Dark Knight")
+    driver: Optional[str] = Field(None, description="Primary driver, typically Bruce Wayne/Batman")
+    era: Optional[str] = Field(None, description="Era or continuity, e.g., Burtonverse, DCEU")
+    universe: Optional[str] = Field(None, description="Film / Animated / Game / TV / Comic")
+    description: Optional[str] = Field(None, description="Short description of design and capabilities")
+    specs: Optional[List[str]] = Field(default=None, description="Key features/specifications")
+    designer: Optional[str] = Field(None, description="Designer or production designer")
+    image_url: Optional[HttpUrl] = Field(None, description="Preview image URL")
+    source: Optional[str] = Field(None, description="Source or notes")
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class Gadget(BaseModel):
+    """
+    Gadgets collection schema
+    Collection name: "gadget"
+    """
+    name: str = Field(..., description="Gadget name")
+    category: str = Field(..., description="Category, e.g., Offensive, Mobility, Utility, Forensics")
+    description: str = Field(..., description="What it does")
+    first_appearance: Optional[str] = Field(None, description="First notable appearance")
+    image_url: Optional[HttpUrl] = Field(None, description="Preview image URL")
